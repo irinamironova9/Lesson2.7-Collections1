@@ -26,7 +26,7 @@ public abstract class Driver <T extends Transport> {
     @Override
     public final String toString() {
         return "Водитель " + fullName + " со стажем " +
-                drivingExperience + " лет управляет " + transport;
+                drivingExperience + " лет, авто - " + transport;
     }
 
     public final String getFullName() {
@@ -48,8 +48,5 @@ public abstract class Driver <T extends Transport> {
 
     public final void setTransport(T transport) {
         this.transport = transport;
-        if (transport != null) {
-            transport.setDriver(this);
-        }
     }
 }

@@ -4,16 +4,15 @@ import racing.people.Mechanic;
 import racing.people.Sponsor;
 import racing.people.drivers.Driver;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
-public abstract class Transport {
+public abstract class Transport<D extends Driver> {
     private final String brand;
     private final String model;
     private double engineVolume;
-    private Driver driver;
-    private LinkedList<Mechanic> mechanics;
-    private LinkedList<Sponsor> sponsors;
+    protected D driver;
+    private final LinkedList<Mechanic> mechanics;
+    private final LinkedList<Sponsor> sponsors;
 
     public Transport(String brand,
                      String model,
@@ -31,6 +30,23 @@ public abstract class Transport {
     public abstract void stopMoving();
 
     public abstract void doCheckup() throws FailedCheckupException;
+
+    public void printVehiclesPeople() {
+        System.out.printf("Над %s %s работают:\n" +
+                        "Водитель - %s\n" +
+                        "Механики:\n",
+                brand, model,
+                driver.getFullName());
+
+        for (Mechanic mechanic : mechanics) {
+            System.out.println(mechanic);
+        }
+
+        System.out.println("Спонсоры:");
+        for (Sponsor sponsor : sponsors) {
+            System.out.println(sponsor);
+        }
+    }
 
     public static String parse(String value){
         return value != null && !value.isEmpty() && !value.isBlank() ?
@@ -56,7 +72,7 @@ public abstract class Transport {
         return engineVolume;
     }
 
-    public final Driver getDriver() {
+    public final D getDriver() {
         return driver;
     }
 
@@ -69,14 +85,7 @@ public abstract class Transport {
     }
 
     public void setEngineVolume(Double engineVolume) {
-        this.engineVolume = engineVolume != null && engineVolume > 0 ? engineVolume : 1.5;
-    }
-
-    public void setDriver(Driver driver) {
-        if (driver != null) {
-            this.driver = driver;
-        } else {
-            throw new IllegalArgumentException("Водитель не может быть null!");
-        }
+        this.engineVolume = engineVolume != null && engineVolume > 0 ?
+                engineVolume : 1.5;
     }
 }

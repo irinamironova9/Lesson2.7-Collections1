@@ -1,5 +1,8 @@
 package racing.transport;
 
+import racing.people.drivers.Driver;
+import racing.people.drivers.DriverB;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class Car extends Transport implements Competing {
@@ -57,6 +60,7 @@ public final class Car extends Transport implements Competing {
     }
 
     private final BodyType bodyType;
+//    private DriverB driver;
 
     public Car(String brand,
                String model,
@@ -127,5 +131,13 @@ public final class Car extends Transport implements Competing {
 
     public BodyType getBodyType() {
         return bodyType;
+    }
+
+    public void setDriver(DriverB driver) {
+        if (driver != null) {
+            this.driver = driver;
+        } else {
+            throw new IllegalArgumentException("Водитель не может быть null!");
+        }
     }
 }

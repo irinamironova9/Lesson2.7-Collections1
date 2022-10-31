@@ -1,5 +1,8 @@
 package racing.transport;
 
+import racing.people.drivers.DriverC;
+import racing.people.drivers.DriverD;
+
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -43,6 +46,7 @@ public final class Truck extends Transport implements Competing {
     }
 
     private final LoadCapacityType loadCapacityType;
+//    private DriverC driver;
 
     public Truck(String brand,
                  String model,
@@ -104,5 +108,13 @@ public final class Truck extends Transport implements Competing {
 
     public LoadCapacityType getLoadCapacityType() {
         return loadCapacityType;
+    }
+
+    public void setDriver(DriverC driver) {
+        if (driver != null) {
+            this.driver = driver;
+        } else {
+            throw new IllegalArgumentException("Водитель не может быть null!");
+        }
     }
 }

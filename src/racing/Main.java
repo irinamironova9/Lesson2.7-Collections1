@@ -1,11 +1,15 @@
 package racing;
 
+import racing.people.Mechanic;
+import racing.people.Sponsor;
 import racing.people.drivers.DriverB;
 import racing.people.drivers.DriverC;
 import racing.people.drivers.DriverD;
 import racing.transport.*;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws FailedCheckupException {
@@ -38,29 +42,35 @@ public class Main {
                 Bus.CapacityType.VERY_LARGE);
 
         DriverB veronica = new DriverB<>("Вероника", 6, lada);
+        lada.setDriver(veronica);
         DriverB alexander = new DriverB<>("Александр", 4, audi);
+        audi.setDriver(alexander);
         DriverB mary = new DriverB<>("Мария", 3, bmw);
+        bmw.setDriver(mary);
         DriverB john = new DriverB<>("John", 5, kia);
+        kia.setDriver(john);
 
         DriverC oleg = new DriverC<>("Олег", 8, volvo);
+        volvo.setDriver(oleg);
         DriverC katya = new DriverC<>("Екатерина", 6, gaz);
+        gaz.setDriver(katya);
         DriverC jack = new DriverC<>("Jack", 5, kamaz);
+        kamaz.setDriver(jack);
         DriverC alisa = new DriverC<>("Алиса", 7, iveco);
+        iveco.setDriver(alisa);
 
         DriverD petr = new DriverD<>("Пётр", 7, bus1);
+        bus1.setDriver(petr);
         DriverD liza = new DriverD<>("Лиза", 9, bus2);
+        bus2.setDriver(liza);
         DriverD maxim = new DriverD<>("Максим", 8, bus3);
+        bus3.setDriver(maxim);
         DriverD anna = new DriverD<>("Анна", 10, bus4);
+        bus4.setDriver(anna);
 
-
-
-        bus1.doCheckup();
-        kia.doCheckup();
-        iveco.doCheckup();
-
-        doCheckupForAll(lada, audi, bmw, kia,
-                volvo, gaz, kamaz, iveco,
-                bus1, bus2, bus3, bus4);
+//        bus1.doCheckup();
+//        kia.doCheckup();
+//        iveco.doCheckup();
 
         ArrayList<Transport> competingList = new ArrayList<>();
         competingList.add(lada);
@@ -76,11 +86,27 @@ public class Main {
         competingList.add(bus3);
         competingList.add(bus4);
 
+//        doCheckupForAll(competingList);
+
+        Sponsor vladimir = new Sponsor("Владимир", 500_000);
+        Sponsor hannah = new Sponsor("Hannah", 600_000);
+        Sponsor jane = new Sponsor("Jane", 480_000);
+        kia.getSponsors().add(vladimir);
+        kia.getSponsors().add(hannah);
+        kia.getSponsors().add(jane);
+
+        Mechanic olga = new Mechanic<>("Ольга", "Wheels");
+        Mechanic sasha = new Mechanic<>("Саша", "Fiery Motors");
+        Mechanic susan = new Mechanic<>("Susan", "Browne`s");
+        kia.getMechanics().add(olga);
+        kia.getMechanics().add(sasha);
+        kia.getMechanics().add(susan);
+
+        kia.printVehiclesPeople();
     }
 
-    public static void doCheckupForAll(Transport... vehicles)
+    public static void doCheckupForAll(List<Transport> vehicles)
             throws FailedCheckupException {
-
         try {
             for (Transport transport : vehicles) {
                 transport.doCheckup();

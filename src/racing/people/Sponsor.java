@@ -1,33 +1,31 @@
 package racing.people;
 
-import org.w3c.dom.ls.LSOutput;
 import racing.transport.Transport;
-
-import java.util.LinkedList;
 
 public class Sponsor<T extends Transport> {
 
     private final String nameOrCompany;
     private double money;
-    private LinkedList<T> sponsoredVehicles;
 
     public Sponsor(String nameOrCompany, double money) {
         this.nameOrCompany = Transport.parse(nameOrCompany);
         setMoney(money);
-        this.sponsoredVehicles = new LinkedList<>();
     }
 
-    public void sponsorRacing() {
-        System.out.printf("%s проспонсировал(а) транспортные средства ",
-                getNameOrCompany());
-
-        for (T vehicle : sponsoredVehicles) {
-            System.out.printf("%s %s, ",
-                    vehicle.getBrand(),
-                    vehicle.getModel());
+    public void sponsorRacing(T vehicle) {
+        if (vehicle == null) {
+            throw new IllegalArgumentException("Транспортное средство не может быть null!");
         }
 
-        System.out.printf(" на сумму %.2f руб. каждое.\n", getMoney());
+        System.out.printf("%s проспонсировал(а) транспортное средство %s %s" +
+                " на сумму %.2f руб.\n", getNameOrCompany(),
+                vehicle.getBrand(), vehicle.getModel(), getMoney());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Спонсор %s, сумма поддержки - %.2f руб.",
+                nameOrCompany, money);
     }
 
     public String getNameOrCompany() {
@@ -36,10 +34,6 @@ public class Sponsor<T extends Transport> {
 
     public double getMoney() {
         return money;
-    }
-
-    public LinkedList<T> getSponsoredVehicles() {
-        return sponsoredVehicles;
     }
 
     public void setMoney(double money) {
