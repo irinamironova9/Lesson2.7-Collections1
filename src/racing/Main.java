@@ -102,7 +102,20 @@ public class Main {
         kia.getMechanics().add(sasha);
         kia.getMechanics().add(susan);
 
-        kia.printVehiclesPeople();
+//        kia.printVehiclesPeople();
+
+        ServiceStation serviceStation = new ServiceStation();
+        serviceStation.addToQueue(lada);
+        serviceStation.addToQueue(gaz);
+        serviceStation.addToQueue(audi);
+        serviceStation.addToQueue(volvo);
+        serviceStation.addToQueue(kia);
+        serviceStation.addToQueue(bus1);
+        serviceStation.addToQueue(bmw);
+        serviceStation.addToQueue(kamaz);
+        serviceStation.addToQueue(iveco);
+
+        serviceStation.service();
     }
 
     public static void doCheckupForAll(List<Transport> vehicles)
